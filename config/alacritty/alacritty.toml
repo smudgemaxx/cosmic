@@ -4,9 +4,9 @@ import = [
 ]
 
 [font]
-normal.family = "IosevkaTermSlabNerdFont"
+normal.family = "CaskaydiaCove Nerd Font"
 bold.style = "SemiBold"
-size = 14
+size = 12
 
 [window]
 opacity = 1

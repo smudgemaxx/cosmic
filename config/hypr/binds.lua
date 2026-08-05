@@ -40,13 +40,13 @@ hl.bind("ALT + DELETE", hl.dsp.exec_cmd("~/.local/bin/powerMenu"))
 hl.bind("ALT + B", hl.dsp.exec_cmd(browser))
 
 hl.bind("CTRL + left", hl.dsp.exec_cmd("mpc volume -2"), {
-	repeating = true,
-	locked = true,
+  repeating = true,
+  locked = true,
 })
 
 hl.bind("CTRL + right", hl.dsp.exec_cmd("mpc volume +2"), {
-	repeating = true,
-	locked = true,
+  repeating = true,
+  locked = true,
 })
 
 hl.bind("ALT + S", hl.dsp.workspace.toggle_special("ncmpcpp"))
@@ -84,33 +84,35 @@ hl.bind("ALT + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind("ALT + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), {
-	repeating = true,
-	locked = true,
+  repeating = true,
+  locked = true,
 })
 
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), {
-	repeating = true,
-	locked = true,
+  repeating = true,
+  locked = true,
 })
 
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), {
-	locked = true,
+  locked = true,
 })
 
 hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @default_audio_source@ toggle"), {
-	locked = true,
+  locked = true,
 })
 
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set +5%"), {
-	repeating = true,
-	locked = true,
+  repeating = true,
+  locked = true,
 })
 
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), {
-	repeating = true,
-	locked = true,
+  repeating = true,
+  locked = true,
 })
 
 hl.bind("ALT + N", hl.dsp.exec_cmd("~/.local/bin/nightlightToggle"))
 
 hl.bind("ALT + Q", hl.dsp.layout("colresize +conf"))
+hl.bind("ALT+SUPER + L", hl.dsp.layout("swapcol r"))
+hl.bind("ALT+SUPER + H", hl.dsp.layout("swapcol l"))

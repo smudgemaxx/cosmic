@@ -1,4 +1,4 @@
 terminal = "alacritty"
-fileManager = "thunar"
+fileManager = "pcmanfm"
 menu = "rofi -show drun"
 browser = "helium-browser"
