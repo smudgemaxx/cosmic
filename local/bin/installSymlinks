@@ -37,3 +37,7 @@ ln -sf ~/.config/cosmic/config/uwsm ~/.config/
 cp ~/.config/cosmic/config/config.fish ~/.config/fish
 
 ln -sf ~/.config/cosmic/config/fastfetch ~/.config/
+
+rm -rf ~/.config/quickshell
+
+ln -sf ~/.config/cosmic/config/quickshell ~/.config/

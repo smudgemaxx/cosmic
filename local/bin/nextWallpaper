@@ -23,5 +23,5 @@ else
   toBeApplied=0
 fi
 
-killall swaybg
+pkill swaybg
 swaybg -i "$wallDir""/"${array[$toBeApplied]} &

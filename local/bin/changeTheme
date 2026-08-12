@@ -32,7 +32,7 @@ nord)
   ;;
 esac
 
-gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme"
+dconf write /org/gnome/desktop/interface/gtk-theme \'"$gtk_theme"\'
 
 sed -i -e "/gtk-theme-name/s/=.*/=$gtk_theme/" "$HOME"/.config/gtk-{3,4}.0/settings.ini
 
@@ -48,7 +48,7 @@ if [ -d "$HOME/.themes/$gtk_theme/gtk-4.0" ]; then
   ln -sf "$HOME/.themes/$gtk_theme/gtk-4.0/assets" "$HOME/.config/gtk-4.0/" 2>/dev/null
 fi
 
-killall swaybg
+pkill swaybg
 
 bash $wallpaper
 
@@ -56,8 +56,6 @@ dunstctl reload
 
 hyprctl reload
 
-bash ~/.local/bin/restartWaybar
-
 touch "$BASE_DIR/alacritty/alacritty.toml"
 
-notify-send "Theme Changed" "Applied $choice theme"
+dunstify "Theme Changed" "Applied $choice theme"

@@ -1,6 +1,6 @@
 hl.on("hyprland.start", function()
   hl.exec_cmd("qs & dunst & udiskie")
   hl.exec_cmd("hyprsunset -t 4000")
-  hl.exec_cmd("~/.local/bin/batteryNotify & ~/.local/bin/startupWallpaper")
+  hl.exec_cmd("~/.local/bin/batteryNotify")
   hl.exec_cmd("wl-paste --type text --watch cliphist store &  wl-paste --type image --watch cliphist store")
 end)

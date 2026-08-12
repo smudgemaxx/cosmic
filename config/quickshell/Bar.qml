@@ -123,7 +123,7 @@ PanelWindow {
       property var iconNumber: percentage != 100 ? Math.floor( percentage/10 ) : 9
       property var chargingIcons: ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
       property var dischargingIcons: ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
-      text: chargingStatus == 1 ? `${chargingIcons[iconNumber]} ${percentage}%` : ( chargingStatus == 2 ? `${dischargingIcons[iconNumber]} ${percentage}%`  : "" )
+      text: chargingStatus == 1 ? `${chargingIcons[iconNumber]} ${percentage}%` : ( chargingStatus == 2 ? `${dischargingIcons[iconNumber]} ${percentage}%`  : ` ${percentage}%` )
       color: "#cdd6f4"
       font.family: root.fontName
       font.pixelSize: root.fontSize
