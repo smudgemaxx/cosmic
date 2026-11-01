@@ -10,9 +10,19 @@ ShellRoot {
   Wallpaper {}
 
   IpcHandler {
+    id: launcherIpc
     target: "launcher"
-    function toggle(): void {
+
+    function toggle() {
       LauncherState.open = !LauncherState.open
+    }
+
+    function open() {
+      LauncherState.open = true
+    }
+
+    function close() {
+      LauncherState.open = false
     }
   }
 }

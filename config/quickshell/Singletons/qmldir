@@ -1,2 +1,3 @@
 singleton WallpaperState 1.0 WallpaperState.qml
 singleton LauncherState 1.0 LauncherState.qml
+singleton Theme 1.0 Theme.qml

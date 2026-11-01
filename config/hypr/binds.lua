@@ -13,21 +13,21 @@ hl.bind("ALT + E", hl.dsp.exec_cmd(fileManager))
 
 hl.bind("ALT + F", hl.dsp.window.fullscreen({ action = "toggle" }))
 
-hl.bind("ALT + SPACE", hl.dsp.exec_cmd(menu .. " -theme-str 'entry { placeholder: \"Apps\"; }'"))
+hl.bind("ALT + SPACE", hl.dsp.exec_cmd("rofi -show drun"))
 
-hl.bind("ALT + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy"))
+hl.bind("ALT + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu"))
 
 hl.bind("PRINT", hl.dsp.exec_cmd("~/.local/bin/screenshotFull"))
 
 hl.bind("ALT + PRINT", hl.dsp.exec_cmd("~/.local/bin/screenshotRegion"))
 
-hl.bind("ALT + SHIFT + W", hl.dsp.exec_cmd("qs ipc call launcher toggle"))
+hl.bind("ALT + SHIFT + W", hl.dsp.exec_cmd("~/.local/bin/nextWallpaper"))
 
 hl.bind("ALT + P", hl.dsp.exec_cmd("~/.local/bin/togglePower"))
 
 hl.bind("ALT + SHIFT + L", hl.dsp.exec_cmd("hyprlock"))
 
-hl.bind("ALT + period", hl.dsp.exec_cmd("rofi -modi emoji -show emoji"))
+hl.bind("ALT + period", hl.dsp.exec_cmd("notify-send emoji"))
 
 hl.bind("ALT + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))
 
@@ -49,7 +49,6 @@ hl.bind("CTRL + right", hl.dsp.exec_cmd("mpc volume +2"), {
 	locked = true,
 })
 
-hl.bind("ALT + S", hl.dsp.workspace.toggle_special("ncmpcpp"))
 
 hl.bind("ALT + h", hl.dsp.focus({ direction = "l" }))
 hl.bind("ALT + l", hl.dsp.focus({ direction = "r" }))

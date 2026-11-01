@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# App launcher: rofi list of installed apps + open/search typed text on Enter.
+#
+# Bind this to a key, e.g. in ~/.config/hypr/binds.lua:
+#   hl.bind("ALT + A", hl.dsp.exec_cmd("~/.local/bin/appmenu"))
+#
+# Any extra arguments are passed straight to rofi (e.g. `appmenu -theme X`).
+
+set -u
+
+config_dir="${XDG_CONFIG_HOME:-$HOME/.config}/rofi"
+script="$config_dir/scripts/apps.py"
+
+if [[ ! -x "$script" ]]; then
+    echo "appmenu: missing executable $script" >&2
+    exit 1
+fi
+
+exec rofi \
+    -show apps \
+    -modi "apps:$script" \
+    -matching normal \
+    -theme-str 'entry { placeholder: "Search apps or the web…"; }' \
+    "$@"

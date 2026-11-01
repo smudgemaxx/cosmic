@@ -6,11 +6,31 @@ BASE_DIR="$HOME/.config/cosmic/config"
 gtk3="$HOME/.config/gtk-3.0/settings.ini"
 gtk4="$HOME/.config/gtk-4.0/settings.ini"
 
-wallpaper=~/.config/cosmic/local/bin/startupWallpaper
+# List the available themes, one per line.
+list_themes() {
+  find "$BASE_DIR/alacritty" -name "*.toml" ! -name "current-theme.toml" ! -name "alacritty.toml" -printf "%f\n" |
+    sed 's/\.toml$//' | sort
+}
 
-choice=$(find "$BASE_DIR/alacritty" -name "*.toml" ! -name "current-theme.toml" ! -name "alacritty.toml" -printf "%f\n" | sed 's/\.toml//' | rofi -dmenu -i -theme-str 'entry { placeholder: "Themes"; }')
+# Kept so other menus can still query the list without opening rofi.
+if [[ "${1:-}" == "--list" ]]; then
+  list_themes
+  exit 0
+fi
+
+# Use the theme passed as an argument, otherwise prompt with rofi.
+if [[ -n "${1:-}" ]]; then
+  choice="$1"
+else
+  choice=$(list_themes | rofi -dmenu -i -p "Theme" -theme-str 'entry { placeholder: "Themes"; }')
+fi
 
 [[ -z "$choice" ]] && exit 1
+
+if [[ ! -f "$BASE_DIR/alacritty/$choice.toml" ]]; then
+  echo "Unknown theme: $choice" >&2
+  exit 1
+fi
 
 ln -snf "$BASE_DIR/alacritty/$choice.toml" "$BASE_DIR/alacritty/current-theme"
 ln -snf "$BASE_DIR/rofi/$choice.rasi" "$BASE_DIR/rofi/current-theme"
@@ -49,8 +69,6 @@ if [ -d "$HOME/.themes/$gtk_theme/gtk-4.0" ]; then
 fi
 
 pkill swaybg
-
-bash $wallpaper
 
 dunstctl reload
 

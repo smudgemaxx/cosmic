@@ -1,4 +1,4 @@
 terminal = "alacritty"
 fileManager = "pcmanfm"
-menu = "rofi -show drun"
-browser = "helium-browser"
+menu = "qs ipc call launcher toggle"
+browser = "firefox"

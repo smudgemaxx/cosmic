@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Print the current player as: ICON Title(20) - Artist(15)
+
+status="$(playerctl status 2>/dev/null)" || exit 0
+
+case "$status" in
+  Playing) icon="󰝚 " ;;
+  Paused)  icon="" ;;
+  *)       exit 0 ;;
+esac
+
+title="$(playerctl metadata title 2>/dev/null)"
+artist="$(playerctl metadata artist 2>/dev/null)"
+
+# Bash substring expansion counts characters under a UTF-8 locale.
+title="${title:0:20}"
+artist="${artist:0:15}"
+
+printf '%s %s - %s\n' "$icon" "$title" "$artist"

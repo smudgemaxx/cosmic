@@ -1,0 +1,81 @@
+
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+readonly BASE_DIR="$HOME/.config/cosmic"
+readonly THEME_FILE="$BASE_DIR/current-theme"
+readonly WALLPAPER_BASE="$BASE_DIR/walls"
+readonly ROFI_THEME="$HOME/.config/rofi/wallpaper.rasi"
+readonly SELECTED_FILE="$BASE_DIR/current-wallpaper"
+readonly CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/wallpaper-picker"
+
+# Read the current theme.
+if [[ ! -r "$THEME_FILE" ]]; then
+    notify-send "Wallpaper Picker" "Current theme file not found."
+    exit 1
+fi
+
+IFS= read -r THEME < "$THEME_FILE"
+[[ -n "$THEME" && "$THEME" != */* && "$THEME" != *..* ]] || {
+    notify-send "Wallpaper Picker" "Invalid theme name."
+    exit 1
+}
+
+readonly WALLPAPER_DIR="$WALLPAPER_BASE/$THEME"
+
+if [[ ! -d "$WALLPAPER_DIR" ]]; then
+    notify-send "Wallpaper Picker" "No wallpapers found for $THEME."
+    exit 1
+fi
+
+mkdir -p "$CACHE_DIR"
+
+# Generate Rofi entries with thumbnail icons.
+entries=$(mktemp)
+trap 'rm -f "$entries"' EXIT
+
+while IFS= read -r -d '' file; do
+    filename="${file##*/}"
+    thumb="$CACHE_DIR/$(printf '%s' "$file" | sha256sum | cut -d' ' -f1).png"
+
+    if [[ ! -f "$thumb" || "$file" -nt "$thumb" ]]; then
+        magick "$file" \
+            -auto-orient \
+            -thumbnail '300x300^' \
+            -gravity center \
+            -extent 300x300 \
+            "$thumb" 2>/dev/null || continue
+    fi
+
+    printf '%s\0icon\x1f%s\n' "$file" "$thumb" >> "$entries"
+done < <(
+    find "$WALLPAPER_DIR" -maxdepth 1 -type f \
+        \( -iname '*.jpg' -o -iname '*.jpeg' \
+        -o -iname '*.png' -o -iname '*.webp' \) \
+        -print0 | sort -z
+)
+
+if [[ ! -s "$entries" ]]; then
+    notify-send "Wallpaper Picker" "No supported wallpapers found."
+    exit 1
+fi
+
+# Show the icon grid.
+selection=$(
+    rofi -dmenu -i -show-icons \
+        -p "$THEME" \
+        -format s \
+        -theme "$ROFI_THEME" \
+        < "$entries"
+) || exit 0
+
+[[ -n "$selection" && -f "$selection" ]] || exit 0
+
+# Save the selected filename, not the absolute path.
+printf '%s\n' "${selection##*/}" > "$SELECTED_FILE"
+
+# Apply the selected wallpaper.
+pkill -x swaybg 2>/dev/null || true
+swaybg -i "$selection" -m fill >/dev/null 2>&1 &
+
+notify-send "Wallpaper Changed" "${selection##*/}"

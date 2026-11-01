@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Print the number of connected Bluetooth devices and a status icon:
+#   connected_count ICON
+# Powered off uses the crossed-out Bluetooth icon.
+
+powered="$(bluetoothctl show 2>/dev/null | awk -F': ' '/Powered:/{print $2; exit}')"
+
+if [[ "$powered" == "yes" ]]; then
+  icon=""
+  count="$(bluetoothctl devices Connected 2>/dev/null |
+    awk '/^Device /{n++} END{print n+0}')"
+else
+  icon="󰂲"
+  count=0
+fi
+
+if [[ "$count" -eq 0 ]]; then
+  printf '%s\n' "$icon"
+else
+  printf '%s %s\n' "$icon" "$count" 
+fi

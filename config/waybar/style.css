@@ -7,7 +7,7 @@
   border-radius: 0;
   min-height: 0;
   font-family: 'CaskaydiaCoveNerdFont';
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .modules-left,
@@ -17,42 +17,50 @@
     border: none;
 }
 
+#workspaces {
+  margin: 0px 4px 0px 4px;
+}
+
 #workspaces button {
   all: initial;
   padding: 0 6px;
-  margin: 0 4px;
+  margin: 0px 4px 0px 4px;
   min-width: 9px;
 }
 
 
-#workspaces button.empty label { 
+#workspaces button.hidden label { 
   opacity: 0.6;
 }
 
 #battery {
-  margin: 0px 15px;
+  margin: 0px 20px 0px 10px;
 }
 
 #backlight {
-  margin: 0px 8px;
+  margin: 0px 10px 0px 10px;
 }
 
 #pulseaudio {
-  margin: 0px 15px;
+  margin: 0px 10px 0px 10px;
 }
 
 #bluetooth {
-  margin: 0px 0px;
+  margin: 0px 10px 0px 10px;
 }
 
 #network {
-  margin: 0px 20px;
+  margin: 0px 10px 0px 10px;
 }
 
 #tray {
-  margin: 0px 10px;
+  margin: 0px 0px 0px 20px;
 }
 
 #tray-expander{
-  margin: 0px 0px;
+  margin: 0px 10px 0px 10px;
+}
+
+#mpris{
+  margin: 0px 0px 0px 8px;
 }
